@@ -1,6 +1,6 @@
 #turn a servo, return locked or unlocked
 import time
-##import wiringpi
+import wiringpi
 import sys
 import getopt
 
@@ -45,4 +45,3 @@ def main(argv):
 
 if __name__ == "__main__":
     main(sys.argv[1:])
-            
