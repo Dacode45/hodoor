@@ -69,7 +69,8 @@ def main():
             JSONPayload = '{"state":{"link":"' + str(os.environ['WEBCAM_LINK']) + '"}}'
             print JSONPayload
             Bot.shadowUpdate(JSONPayload, customShadowCallback_Update, 5)
-            time.sleep(0.2)
+       	    time.sleep(1)
+	time.sleep(0.2)
 
 
 if __name__ == '__main__':
