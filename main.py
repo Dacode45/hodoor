@@ -38,6 +38,7 @@ def customShadowCallback_Delete(payload, responseStatus, token):
 		print("Delete request " + token + " rejected!")
 
 def main():
+    setupPins()
     # For certificate based connection
     myShadowClient = AWSIoTMQTTShadowClient(os.environ['AWS_CLIENT_ID'])
     # For Websocket connection
