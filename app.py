@@ -60,7 +60,7 @@ def main():
     loopCount = 0
     # PUT ALL your code for handling buttons and such in here.
     while True:
-    	JSONPayload = '{"state":{"desired":{"property":' + str(loopCount) + '}}}'
+    	JSONPayload = '{"state":{"desired":{"link":' + str(loopCount) + '}}}'
     	Bot.shadowUpdate(JSONPayload, customShadowCallback_Update, 5)
     	loopCount += 1
     	time.sleep(1)
