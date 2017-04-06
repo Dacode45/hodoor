@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>The Door</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+$(document).ready(function() {
+
+	var socket = io();
+	socket.on('connect', function(){
+		
+		socket.emit('lock_status');
+
+	});	
+	var lock_status;
+
+	
+	socket.on('lock_status', function(data){
+		lock_status = data['status'];
+		$("#lock_status").text(lock_status);
+		if (lock_status=='locked'){
+			$("#toggle_lock").html('unlock');
+		}else if (lock_status=='unlocked'){
+			$("#toggle_lock").html('lock');
+		}
+	});
+
+	socket.on('toggle_lock', function(data){
+		if (data['status']=='ok'){
+			socket.emit('lock_status');
+		}
+	});
+
+	$("#toggle_lock").click(function(){
+		socket.emit('toggle_lock');
+	});
+
+
+	
+	
+
+});
+</script>
+</head>
+<body>
+	<p>LOCK STATUS:</p>
+	<p id='lock_status'></p>
+	<button id='toggle_lock'></button>
+</body>
+</html>
