@@ -1,30 +1,11 @@
-#turn a servo, return locked or unlocked
-import time
-import wiringpi
-import sys
-import getopt
+#lock a servo connected to the door knob
 
-# use 'GPIO naming'
-wiringpi.wiringPiSetupGpio()
+import RPi.GPIO as GPIO ## Import GPIO library
+import time ## Import 'time' library. Allows us to use 'sleep'
 
-# set #18 to be a PWM output
-wiringpi.pinMode(18, wiringpi.GPIO.PWM_OUTPUT)
+GPIO.setmode(GPIO.BOARD) ## Use board pin numbering
+GPIO.setup(7, GPIO.OUT) ## Setup GPIO Pin 7 to OUT
 
-# set the PWM mode to milliseconds stype
-wiringpi.pwmSetMode(wiringpi.GPIO.PWM_MODE_MS)
-
-# divide down clock
-wiringpi.pwmSetClock(192)
-wiringpi.pwmSetRange(2000)
-
-delay_period = 0.01
-
-while True:
-    print 'locking...'
-    for pulse in range(150, 50, -1):
-        wiringpi.pwmWrite(18, pulse)
-        time.sleep(delay_period)
-    print 'locked'
-
-
-            
+GPIO.output(7,True)## Switch on pin 7
+time.sleep(100)## Wait
+GPIO.output(7,False)## Switch off pin 7
