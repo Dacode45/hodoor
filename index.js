@@ -16,11 +16,14 @@ app.get("*", function(req,res){
 
 var sockets = {};
 
+var process = spawn('python',['/home/pi/hodoor/main.py']);
 io.on('connection', function(socket){
 	console.log("Socket " + socket.id + " has connected.");
 	sockets[socket.id] = socket;
 	console.log(Object.keys(sockets).length + " clients are connected.");
 		
+
+
 	socket.on('lock_status', function(){
 		io.emit('lock_status', {status:app.locals.lock_status});
 	});
@@ -29,10 +32,10 @@ io.on('connection', function(socket){
 		var script;
 		var result;
 		if (app.locals.lock_status == 'locked'){
-			script = '/home/pi/hodoor/testunlock.py';
+			script = '/home/pi/hodoor/lock.py';
 			result = 'unlocked';
 		}else if (app.locals.lock_status == 'unlocked'){
-			script = '/home/pi/hodoor/testlock.py';
+			script = '/home/pi/hodoor/lock.py';
 			result = 'locked';
 		}
 		var process = spawn('python',[script]);
@@ -66,6 +69,8 @@ io.on('connection', function(socket){
 		delete sockets[socket.id];
 		console.log(Object.keys(sockets).length + " clients are connected.");
 	});
+
+
 });
 
 

@@ -36,16 +36,26 @@ $(document).ready(function() {
 		socket.emit('toggle_lock');
 	});
 
-
-	
-	
+	$(".body").ready(function(){
+		reload_img();
+	});	
+ 
+	function reload_img() {
+ 		$('#mjpeg_img').attr('src', "http://172.27.34.155:8081/picam/cam_pic.php?time=" + new Date().getTime());
+		setTimeout(reload_img, 100);
+	}
 
 });
 </script>
 </head>
 <body>
-	<p>LOCK STATUS:</p>
-	<p id='lock_status'></p>
-	<button id='toggle_lock'></button>
+	<h1><b><center>Smart Lock</center></b></h1><hr>
+
+
+	<center><img id='mjpeg_img'></center>	<hr>
+	<h2><center><span>LOCK STATUS:</span>	
+	<span id='lock_status'></span></center></h2>
+
+	<p><center><button id='toggle_lock'></button></center></p>
 </body>
 </html>
