@@ -1,0 +1,33 @@
+var _user$project$Model$LoginForm = F2(
+	function (a, b) {
+		return {username: a, password: b};
+	});
+var _user$project$Model$User = F2(
+	function (a, b) {
+		return {id: a, username: b};
+	});
+var _user$project$Model$DoorLock = F6(
+	function (a, b, c, d, e, f) {
+		return {id: a, userId: b, status: c, name: d, awsClientId: e, webcamLink: f};
+	});
+var _user$project$Model$Model = F5(
+	function (a, b, c, d, e) {
+		return {user: a, doorLocks: b, loginForm: c, route: d, mdl: e};
+	});
+var _user$project$Model$NotFoundRoute = {ctor: 'NotFoundRoute'};
+var _user$project$Model$DoorLocksRoute = {ctor: 'DoorLocksRoute'};
+var _user$project$Model$DoorLockRoute = function (a) {
+	return {ctor: 'DoorLockRoute', _0: a};
+};
+var _user$project$Model$LoginRoute = {ctor: 'LoginRoute'};
+var _user$project$Model$init = {
+	ctor: '_Tuple2',
+	_0: {
+		user: _elm_lang$core$Maybe$Nothing,
+		doorLocks: _elm_lang$core$Maybe$Nothing,
+		loginForm: A2(_user$project$Model$LoginForm, '', ''),
+		route: _user$project$Model$LoginRoute,
+		mdl: _debois$elm_mdl$Material$model
+	},
+	_1: _elm_lang$core$Platform_Cmd$none
+};

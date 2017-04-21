@@ -1,0 +1,20 @@
+var _user$project$Msg$Mdl = function (a) {
+	return {ctor: 'Mdl', _0: a};
+};
+var _user$project$Msg$OnLocationChange = function (a) {
+	return {ctor: 'OnLocationChange', _0: a};
+};
+var _user$project$Msg$UnlockDoor = function (a) {
+	return {ctor: 'UnlockDoor', _0: a};
+};
+var _user$project$Msg$LockDoor = function (a) {
+	return {ctor: 'LockDoor', _0: a};
+};
+var _user$project$Msg$SubmitLoginForm = {ctor: 'SubmitLoginForm'};
+var _user$project$Msg$PasswordInput = function (a) {
+	return {ctor: 'PasswordInput', _0: a};
+};
+var _user$project$Msg$UsernameInput = function (a) {
+	return {ctor: 'UsernameInput', _0: a};
+};
+var _user$project$Msg$NoOp = {ctor: 'NoOp'};

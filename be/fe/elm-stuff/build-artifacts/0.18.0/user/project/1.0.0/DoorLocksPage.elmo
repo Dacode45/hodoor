@@ -1,0 +1,66 @@
+var _user$project$DoorLocksPage$doorLocksPageView = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: A2(
+				_debois$elm_mdl$Material_List$ul,
+				{ctor: '[]'},
+				A2(
+					_elm_lang$core$List$map,
+					function (lock) {
+						return A2(
+							_debois$elm_mdl$Material_List$li,
+							{ctor: '[]'},
+							{
+								ctor: '::',
+								_0: A2(
+									_debois$elm_mdl$Material_List$content,
+									{ctor: '[]'},
+									{
+										ctor: '::',
+										_0: A2(
+											_debois$elm_mdl$Material_List$icon,
+											'lock',
+											{ctor: '[]'}),
+										_1: {
+											ctor: '::',
+											_0: A2(
+												_elm_lang$html$Html$a,
+												{
+													ctor: '::',
+													_0: _elm_lang$html$Html_Attributes$href(
+														_user$project$Routing$lockPath(lock.id)),
+													_1: {ctor: '[]'}
+												},
+												{
+													ctor: '::',
+													_0: _elm_lang$html$Html$text(lock.name),
+													_1: {ctor: '[]'}
+												}),
+											_1: {
+												ctor: '::',
+												_0: A2(
+													_elm_lang$html$Html$span,
+													{
+														ctor: '::',
+														_0: _elm_lang$html$Html_Attributes$class(lock.status),
+														_1: {ctor: '[]'}
+													},
+													{
+														ctor: '::',
+														_0: _elm_lang$html$Html$text(lock.status),
+														_1: {ctor: '[]'}
+													}),
+												_1: {ctor: '[]'}
+											}
+										}
+									}),
+								_1: {ctor: '[]'}
+							});
+					},
+					model.doorLocks)),
+			_1: {ctor: '[]'}
+		});
+};

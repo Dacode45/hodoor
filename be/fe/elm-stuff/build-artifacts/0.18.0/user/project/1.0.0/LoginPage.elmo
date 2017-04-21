@@ -1,0 +1,84 @@
+var _user$project$LoginPage$loginPageView = function (model) {
+	return _debois$elm_mdl$Material_Scheme$top(
+		A2(
+			_elm_lang$html$Html$div,
+			{ctor: '[]'},
+			{
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$form,
+					{ctor: '[]'},
+					{
+						ctor: '::',
+						_0: A5(
+							_debois$elm_mdl$Material_Textfield$render,
+							_user$project$Msg$Mdl,
+							{
+								ctor: '::',
+								_0: 0,
+								_1: {ctor: '[]'}
+							},
+							model.mdl,
+							{
+								ctor: '::',
+								_0: _debois$elm_mdl$Material_Textfield$label('User Name'),
+								_1: {
+									ctor: '::',
+									_0: _debois$elm_mdl$Material_Options$onInput(_user$project$Msg$UsernameInput),
+									_1: {ctor: '[]'}
+								}
+							},
+							{ctor: '[]'}),
+						_1: {
+							ctor: '::',
+							_0: A5(
+								_debois$elm_mdl$Material_Textfield$render,
+								_user$project$Msg$Mdl,
+								{
+									ctor: '::',
+									_0: 1,
+									_1: {ctor: '[]'}
+								},
+								model.mdl,
+								{
+									ctor: '::',
+									_0: _debois$elm_mdl$Material_Textfield$label('Password'),
+									_1: {
+										ctor: '::',
+										_0: _debois$elm_mdl$Material_Options$onInput(_user$project$Msg$PasswordInput),
+										_1: {ctor: '[]'}
+									}
+								},
+								{ctor: '[]'}),
+							_1: {
+								ctor: '::',
+								_0: A5(
+									_debois$elm_mdl$Material_Button$render,
+									_user$project$Msg$Mdl,
+									{
+										ctor: '::',
+										_0: 2,
+										_1: {ctor: '[]'}
+									},
+									model.mdl,
+									{
+										ctor: '::',
+										_0: _debois$elm_mdl$Material_Button$raised,
+										_1: {
+											ctor: '::',
+											_0: _debois$elm_mdl$Material_Options$onClick(_user$project$Msg$SubmitLoginForm),
+											_1: {ctor: '[]'}
+										}
+									},
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html$text('Login'),
+										_1: {ctor: '[]'}
+									}),
+								_1: {ctor: '[]'}
+							}
+						}
+					}),
+				_1: {ctor: '[]'}
+			}));
+};

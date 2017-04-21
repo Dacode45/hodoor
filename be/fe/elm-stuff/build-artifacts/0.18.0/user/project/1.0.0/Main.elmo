@@ -1,0 +1,52 @@
+var _user$project$Main$update = F2(
+	function (msg, model) {
+		var _p0 = msg;
+		switch (_p0.ctor) {
+			case 'NoOp':
+				return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
+			case 'UsernameInput':
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{
+							loginForm: A2(_user$project$Model$LoginForm, _p0._0, model.loginForm.password)
+						}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			case 'PasswordInput':
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{
+							loginForm: A2(_user$project$Model$LoginForm, model.loginForm.username, _p0._0)
+						}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			case 'SubmitLoginForm':
+				return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
+			case 'LockDoor':
+				return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
+			case 'UnlockDoor':
+				return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
+			case 'OnLocationChange':
+				var newRoute = _user$project$Routing$parseLocation(_p0._0);
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{route: newRoute}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			default:
+				return A3(_debois$elm_mdl$Material$update, _user$project$Msg$Mdl, _p0._0, model);
+		}
+	});
+var _user$project$Main$main = _elm_lang$html$Html$program(
+	{
+		view: _user$project$View$view,
+		init: _user$project$Model$init,
+		update: _user$project$Main$update,
+		subscriptions: _elm_lang$core$Basics$always(_elm_lang$core$Platform_Sub$none)
+	})();
