@@ -1,0 +1,10 @@
+var _user$project$Models$statusUnlocked = 'unlocked';
+var _user$project$Models$statusLocked = 'locked';
+var _user$project$Models$User = F3(
+	function (a, b, c) {
+		return {id: a, doorLockId: b, username: c};
+	});
+var _user$project$Models$DoorLock = F5(
+	function (a, b, c, d, e) {
+		return {id: a, userId: b, name: c, status: d, webCamLink: e};
+	});

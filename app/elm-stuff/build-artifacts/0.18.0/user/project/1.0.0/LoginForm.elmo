@@ -1,0 +1,213 @@
+var _user$project$LoginForm$userDecoder = A3(
+	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+	'username',
+	_elm_lang$core$Json_Decode$string,
+	A3(
+		_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+		'doorLockId',
+		_elm_lang$core$Json_Decode$int,
+		A3(
+			_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+			'id',
+			_elm_lang$core$Json_Decode$int,
+			_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$Models$User))));
+var _user$project$LoginForm$loginBody = F2(
+	function (username, password) {
+		return _elm_lang$http$Http$jsonBody(
+			_elm_lang$core$Json_Encode$object(
+				{
+					ctor: '::',
+					_0: {
+						ctor: '_Tuple2',
+						_0: 'username',
+						_1: _elm_lang$core$Json_Encode$string(username)
+					},
+					_1: {
+						ctor: '::',
+						_0: {
+							ctor: '_Tuple2',
+							_0: 'password',
+							_1: _elm_lang$core$Json_Encode$string(password)
+						},
+						_1: {ctor: '[]'}
+					}
+				}));
+	});
+var _user$project$LoginForm$loginUserUrl = 'http://localhost:4000/api/login';
+var _user$project$LoginForm$Model = F4(
+	function (a, b, c, d) {
+		return {username: a, password: b, user: c, mdl: d};
+	});
+var _user$project$LoginForm$init = {
+	ctor: '_Tuple2',
+	_0: A4(_user$project$LoginForm$Model, '', '', _krisajenkins$remotedata$RemoteData$Loading, _debois$elm_mdl$Material$model),
+	_1: _elm_lang$core$Platform_Cmd$none
+};
+var _user$project$LoginForm$Mdl = function (a) {
+	return {ctor: 'Mdl', _0: a};
+};
+var _user$project$LoginForm$OnLogin = function (a) {
+	return {ctor: 'OnLogin', _0: a};
+};
+var _user$project$LoginForm$loginUser = F2(
+	function (username, password) {
+		return A2(
+			_elm_lang$core$Platform_Cmd$map,
+			_user$project$LoginForm$OnLogin,
+			_krisajenkins$remotedata$RemoteData$sendRequest(
+				A3(
+					_elm_lang$http$Http$post,
+					_user$project$LoginForm$loginUserUrl,
+					A2(_user$project$LoginForm$loginBody, username, password),
+					_user$project$LoginForm$userDecoder)));
+	});
+var _user$project$LoginForm$update = F2(
+	function (msg, model) {
+		var _p0 = msg;
+		switch (_p0.ctor) {
+			case 'UsernameInput':
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{username: _p0._0}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			case 'PasswordInput':
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{password: _p0._0}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			case 'SubmitLoginForm':
+				return {
+					ctor: '_Tuple2',
+					_0: model,
+					_1: A2(_user$project$LoginForm$loginUser, model.username, model.password)
+				};
+			case 'OnLogin':
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{user: _p0._0}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			default:
+				return A3(_debois$elm_mdl$Material$update, _user$project$LoginForm$Mdl, _p0._0, model);
+		}
+	});
+var _user$project$LoginForm$SubmitLoginForm = {ctor: 'SubmitLoginForm'};
+var _user$project$LoginForm$PasswordInput = function (a) {
+	return {ctor: 'PasswordInput', _0: a};
+};
+var _user$project$LoginForm$UsernameInput = function (a) {
+	return {ctor: 'UsernameInput', _0: a};
+};
+var _user$project$LoginForm$view = function (model) {
+	var loadingText = function () {
+		var _p1 = model.user;
+		switch (_p1.ctor) {
+			case 'NotAsked':
+				return _elm_lang$html$Html$text('Try Logging In');
+			case 'Loading':
+				return _elm_lang$html$Html$text('Attempting Login');
+			case 'Success':
+				return _elm_lang$html$Html$text(
+					A2(_elm_lang$core$Basics_ops['++'], 'Logged in as ', _p1._0.username));
+			default:
+				return _elm_lang$html$Html$text(
+					A2(
+						_elm_lang$core$Basics_ops['++'],
+						'Failed To Login: ',
+						_elm_lang$core$Basics$toString(_p1._0)));
+		}
+	}();
+	return A2(
+		_elm_lang$html$Html$div,
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: loadingText,
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$form,
+					{ctor: '[]'},
+					{
+						ctor: '::',
+						_0: A5(
+							_debois$elm_mdl$Material_Textfield$render,
+							_user$project$LoginForm$Mdl,
+							{
+								ctor: '::',
+								_0: 0,
+								_1: {ctor: '[]'}
+							},
+							model.mdl,
+							{
+								ctor: '::',
+								_0: _debois$elm_mdl$Material_Textfield$label('User Name'),
+								_1: {
+									ctor: '::',
+									_0: _debois$elm_mdl$Material_Options$onInput(_user$project$LoginForm$UsernameInput),
+									_1: {ctor: '[]'}
+								}
+							},
+							{ctor: '[]'}),
+						_1: {
+							ctor: '::',
+							_0: A5(
+								_debois$elm_mdl$Material_Textfield$render,
+								_user$project$LoginForm$Mdl,
+								{
+									ctor: '::',
+									_0: 1,
+									_1: {ctor: '[]'}
+								},
+								model.mdl,
+								{
+									ctor: '::',
+									_0: _debois$elm_mdl$Material_Textfield$label('Password'),
+									_1: {
+										ctor: '::',
+										_0: _debois$elm_mdl$Material_Options$onInput(_user$project$LoginForm$PasswordInput),
+										_1: {ctor: '[]'}
+									}
+								},
+								{ctor: '[]'}),
+							_1: {
+								ctor: '::',
+								_0: A5(
+									_debois$elm_mdl$Material_Button$render,
+									_user$project$LoginForm$Mdl,
+									{
+										ctor: '::',
+										_0: 2,
+										_1: {ctor: '[]'}
+									},
+									model.mdl,
+									{
+										ctor: '::',
+										_0: _debois$elm_mdl$Material_Button$raised,
+										_1: {
+											ctor: '::',
+											_0: _debois$elm_mdl$Material_Options$onClick(_user$project$LoginForm$SubmitLoginForm),
+											_1: {ctor: '[]'}
+										}
+									},
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html$text('Login'),
+										_1: {ctor: '[]'}
+									}),
+								_1: {ctor: '[]'}
+							}
+						}
+					}),
+				_1: {ctor: '[]'}
+			}
+		});
+};
