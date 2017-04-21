@@ -1,5 +1,8 @@
 [Unit]
 Description=Hodoor Service
+Requires=multi-user.target
+After=multi-user.target
+AllowIsolate=yes
 
 [Service]
 Type=simple
