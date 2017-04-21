@@ -66,8 +66,8 @@ def main():
         input_state = GPIO.input(17)
         if input_state == True:
             print('Button Pressed')
-            JSONPayload = '{"state":{"desired":{"property":' + str(os.environ['WEBCAM_LINK']) + '}}}'
-        	print JSONPayload
+            JSONPayload = '{"state":{"desired":{"property":"' + str(os.environ['WEBCAM_LINK']) + '"}}}'
+            print JSONPayload
             Bot.shadowUpdate(JSONPayload, customShadowCallback_Update, 5)
        	    time.sleep(1)
 	time.sleep(0.2)

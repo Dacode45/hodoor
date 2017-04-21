@@ -19,12 +19,12 @@ wiringpi.pwmSetRange(2000)
 
 delay_period = 0.01
 
-while True:
-    print 'unlocking...'
-    for pulse in range(50, 150, 1):
-        wiringpi.pwmWrite(18, pulse)
-        time.sleep(delay_period)
-    print 'unlocked'
+
+print 'unlocking...'
+for pulse in range(50, 150, 1):
+    wiringpi.pwmWrite(18, pulse)
+    time.sleep(delay_period)
+print 'unlocked'
 
 
             
