@@ -32,13 +32,13 @@ def main(argv):
             sys.exit()
         elif opt == '-l':
             print 'locking...'
-            for pulse in range(250, 50, -1):
+            for pulse in range(150, 50, -1):
                 wiringpi.pwmWrite(18, pulse)
                 time.sleep(delay_period)
             print 'locked'
         elif opt == '-u':
             print 'unlocking...'
-            for pulse in range(50, 100, 1):
+            for pulse in range(50, 150, 1):
                 wiringpi.pwmWrite(18, pulse)
                 time.sleep(delay_period)
             print 'unlocked!'
