@@ -41,7 +41,7 @@ $(document).ready(function() {
 	});	
  
 	function reload_img() {
- 		$('#mjpeg_img').attr('src', "http://localhost:8081/picam/cam_pic.php?time=" + new Date().getTime());
+ 		$('#mjpeg_img').attr('src', "http://172.27.34.155:8081/picam/cam_pic.php?time=" + new Date().getTime());
 		setTimeout(reload_img, 100);
 	}
 
