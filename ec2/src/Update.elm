@@ -13,11 +13,7 @@ import Json.Decode as Decode
 
 websocketUrl : Model -> String
 websocketUrl model =
-    let
-        _ =
-            Debug.log model.socketUrl 1
-    in
-        model.socketUrl
+    model.socketUrl
 
 
 lockMsg : Int -> Bool -> String
@@ -67,6 +63,9 @@ update msg model =
             let
                 new =
                     Decode.decodeString wsDecoder msg_
+
+                _ =
+                    Debug.log msg_ 1
             in
                 case new of
                     Ok wsUpdate ->
