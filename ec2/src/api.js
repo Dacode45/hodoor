@@ -73,11 +73,10 @@ wss.on('connection', function(ws){
 
 device.on('connect', function(){
   console.log('connected');
-  device.subscribe('button', {qos: 2});
-  device.subscribe('motion', {qos: 2});
-  device.subscribe('locked', {qos: 2});
-  device.subscribe('unlocked', {qos: 2});
-  device.publish('server', 'awake')
+  device.subscribe('button');
+  device.subscribe('motion');
+  device.subscribe('locked');
+  device.subscribe('unlocked');
 })
 
 device.on('message', function(topic, payload){
