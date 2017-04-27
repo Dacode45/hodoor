@@ -1,0 +1,7 @@
+var _user$project$LF_Msgs$Login = {ctor: 'Login'};
+var _user$project$LF_Msgs$TextEntered = function (a) {
+	return {ctor: 'TextEntered', _0: a};
+};
+var _user$project$LF_Msgs$OnLogin = function (a) {
+	return {ctor: 'OnLogin', _0: a};
+};

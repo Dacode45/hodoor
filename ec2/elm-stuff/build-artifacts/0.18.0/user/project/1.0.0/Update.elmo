@@ -1,0 +1,85 @@
+var _user$project$Update$lockMsg = F2(
+	function (id, locked) {
+		return A2(
+			_elm_lang$core$Basics_ops['++'],
+			'{\"id\":',
+			A2(
+				_elm_lang$core$Basics_ops['++'],
+				_elm_lang$core$Basics$toString(id),
+				A2(
+					_elm_lang$core$Basics_ops['++'],
+					', \"lock\": ',
+					A2(
+						_elm_lang$core$Basics_ops['++'],
+						_elm_lang$core$Basics$toString(
+							locked ? 'lock' : 'unlock'),
+						'}'))));
+	});
+var _user$project$Update$websocketUrl = function (model) {
+	var _p0 = A2(_elm_lang$core$Debug$log, model.socketUrl, 1);
+	return model.socketUrl;
+};
+var _user$project$Update$update = F2(
+	function (msg, model) {
+		var _p1 = msg;
+		switch (_p1.ctor) {
+			case 'NoOp':
+				return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
+			case 'LF':
+				var _p2 = A2(_user$project$LF_Update$update, _p1._0, model.lf);
+				var lf = _p2._0;
+				var cmd = _p2._1;
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{lf: lf}),
+					_1: cmd
+				};
+			case 'LockDoor':
+				var _p3 = model.lf.login;
+				if (_p3.ctor === 'Success') {
+					return {
+						ctor: '_Tuple2',
+						_0: model,
+						_1: A2(
+							_elm_lang$websocket$WebSocket$send,
+							_user$project$Update$websocketUrl(model),
+							A2(_user$project$Update$lockMsg, _p3._0.button, true))
+					};
+				} else {
+					return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
+				}
+			case 'UnlockDoor':
+				var _p4 = model.lf.login;
+				if (_p4.ctor === 'Success') {
+					return {
+						ctor: '_Tuple2',
+						_0: model,
+						_1: A2(
+							_elm_lang$websocket$WebSocket$send,
+							_user$project$Update$websocketUrl(model),
+							A2(_user$project$Update$lockMsg, _p4._0.button, false))
+					};
+				} else {
+					return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
+				}
+			case 'WS':
+				var _p5 = _p1._0;
+				if (_p5 === 'LOGOUT') {
+					return {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Native_Utils.update(
+							model,
+							{
+								lf: _user$project$LF_Models$model(model.httpUrl)
+							}),
+						_1: _elm_lang$core$Platform_Cmd$none
+					};
+				} else {
+					return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
+				}
+			default:
+				return A3(_debois$elm_mdl$Material$update, _user$project$Msgs$Mdl, _p1._0, model);
+		}
+	});

@@ -1,0 +1,28 @@
+{
+  "name": "hodoor",
+  "version": "1.0.0",
+  "description": "Hodoor",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "api": "node api.js",
+    "build": "webpack",
+    "client": "webpack-dev-server --port 8080"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aws-iot-device-sdk": "^1.0.14",
+    "copy-webpack-plugin": "^4.0.1",
+    "css-loader": "^0.28.0",
+    "dotenv": "^4.0.0",
+    "elm-webpack-loader": "^4.3.0",
+    "file-loader": "^0.11.1",
+    "proxy-request": "^0.1.4",
+    "style-loader": "^0.16.1",
+    "url-loader": "^0.5.8",
+    "webpack": "^2.4.1",
+    "webpack-dev-server": "^2.4.4",
+    "ws": "^2.3.1"
+  }
+}

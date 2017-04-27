@@ -1,0 +1,12 @@
+var _user$project$Msgs$Mdl = function (a) {
+	return {ctor: 'Mdl', _0: a};
+};
+var _user$project$Msgs$LF = function (a) {
+	return {ctor: 'LF', _0: a};
+};
+var _user$project$Msgs$WS = function (a) {
+	return {ctor: 'WS', _0: a};
+};
+var _user$project$Msgs$UnlockDoor = {ctor: 'UnlockDoor'};
+var _user$project$Msgs$LockDoor = {ctor: 'LockDoor'};
+var _user$project$Msgs$NoOp = {ctor: 'NoOp'};

@@ -1,0 +1,13 @@
+var _user$project$Models$model = F2(
+	function (socketUrl, httpUrl) {
+		return {
+			lf: _user$project$LF_Models$model(httpUrl),
+			socketUrl: socketUrl,
+			httpUrl: httpUrl,
+			mdl: _debois$elm_mdl$Material$model
+		};
+	});
+var _user$project$Models$Model = F4(
+	function (a, b, c, d) {
+		return {lf: a, socketUrl: b, httpUrl: c, mdl: d};
+	});

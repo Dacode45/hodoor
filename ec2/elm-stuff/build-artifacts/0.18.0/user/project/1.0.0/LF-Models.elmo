@@ -1,0 +1,11 @@
+var _user$project$LF_Models$LogIn = F2(
+	function (a, b) {
+		return {button: a, locked: b};
+	});
+var _user$project$LF_Models$Model = F4(
+	function (a, b, c, d) {
+		return {url: a, text: b, login: c, mdl: d};
+	});
+var _user$project$LF_Models$model = function (url) {
+	return A4(_user$project$LF_Models$Model, url, '', _krisajenkins$remotedata$RemoteData$Loading, _debois$elm_mdl$Material$model);
+};

@@ -1,0 +1,28 @@
+var _user$project$LF_Commands$loginDecoder = A3(
+	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+	'locked',
+	_elm_lang$core$Json_Decode$bool,
+	A3(
+		_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+		'button',
+		_elm_lang$core$Json_Decode$int,
+		_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$LF_Models$LogIn)));
+var _user$project$LF_Commands$getUrl = function (model) {
+	return A2(
+		_elm_lang$core$Basics_ops['++'],
+		model.url,
+		A2(_elm_lang$core$Basics_ops['++'], '/api/login/', model.text));
+};
+var _user$project$LF_Commands$login = function (model) {
+	return A2(
+		_elm_lang$core$Platform_Cmd$map,
+		_user$project$Msgs$LF,
+		A2(
+			_elm_lang$core$Platform_Cmd$map,
+			_user$project$LF_Msgs$OnLogin,
+			_krisajenkins$remotedata$RemoteData$sendRequest(
+				A2(
+					_elm_lang$http$Http$get,
+					_user$project$LF_Commands$getUrl(model),
+					_user$project$LF_Commands$loginDecoder))));
+};
