@@ -8,10 +8,7 @@ var _user$project$LF_Commands$loginDecoder = A3(
 		_elm_lang$core$Json_Decode$int,
 		_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$LF_Models$LogIn)));
 var _user$project$LF_Commands$getUrl = function (model) {
-	return A2(
-		_elm_lang$core$Basics_ops['++'],
-		model.url,
-		A2(_elm_lang$core$Basics_ops['++'], '/api/login/', model.text));
+	return A2(_elm_lang$core$Basics_ops['++'], '/api/login/', model.text);
 };
 var _user$project$LF_Commands$login = function (model) {
 	return A2(

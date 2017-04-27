@@ -11,7 +11,7 @@ import Msgs exposing (..)
 
 getUrl : Model -> String
 getUrl model =
-    model.url ++ "/api/login/" ++ model.text
+    "/api/login/" ++ model.text
 
 
 login : Model -> Cmd Msg
