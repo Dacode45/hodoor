@@ -72,10 +72,11 @@ wss.on('connection', function(ws){
 })
 
 device.on('connect', function(){
-  device.subscribe('button');
-  device.subscribe('motion');
-  device.subscribe('locked');
-  device.subscribe('unlocked');
+  console.log('connected');
+  device.subscribe('button', {qos: 2});
+  device.subscribe('motion', {qos: 2});
+  device.subscribe('locked', {qos: 2});
+  device.subscribe('unlocked', {qos: 2});
   device.publish('server', 'awake')
 })
 
@@ -94,18 +95,16 @@ device.on('message', function(topic, payload){
     case 'unlocked':
       lockUpdate(false,payload)
       break;
-   }
+  }
 })
 
-function buttonUpdate(payload) {
-  button = parseInt(payload.toString())
+function buttonUpdate( payload) {
+  button = parseInt(payload);
   wss.brodcast(update('UPDATE'))
 }
 
 function lockUpdate(status, payload) {
-  locked = status
-  var time = parseInt(payload.toString());
-  lockedTime = new Date(time*1000);
+  locked = status;
   wss.brodcast(update('UPDATE'))
 }
 
