@@ -19,6 +19,10 @@ var button = 0;
 var locked = false;
 var lockedTime = new Date();
 
+function update(msg) {
+  return JSON.stringify({button: button, locked: locked, msg: msg})
+}
+
 app.use(express.static(path.join(__dirname, '../dist')));
 app.get('/api/login/:id', function(req,res){
   var id = parseInt(req.params.id);
@@ -54,6 +58,7 @@ wss.brodcast = function(data) {
 
 wss.on('connection', function(ws){
   const location = url.parse(ws.upgradeReq.url, true);
+  ws.send(update("UPDATE"))
   ws.on('message', function(data){
     data = (typeof data === 'string' || data instanceof String)? JSON.parse(data) : data;
     if (data.id === button) {
@@ -61,7 +66,7 @@ wss.on('connection', function(ws){
       var status = (data.lock)? 'lock' : 'unlock';
       device.publish(status, '');
     } else {
-      ws.send("LOGOUT");
+      ws.send(update("LOGOUT"));
     }
   })
 })
@@ -78,9 +83,9 @@ device.on('message', function(topic, payload){
   console.log('message', topic, payload.toString())
   switch (topic) {
     case 'button':
-      button = parseInt(payload.toString())
+      buttonUpdate(payload);
     case 'motion':
-      button = parseInt(payload.toString())
+      buttonUpdate(payload);
     case 'locked':
       lockUpdate(true, payload)
     case 'unlocked':
@@ -90,16 +95,20 @@ device.on('message', function(topic, payload){
 
 function buttonUpdate(payload) {
   button = parseInt(payload.toString())
-  wss.brodcast(JSON.stringify({kind: 'button', button:button}))
+  wss.brodcast(update('UPDATE'))
 }
 
 function lockUpdate(status, payload) {
   locked = status
   var time = parseInt(payload.toString());
   lockedTime = new Date(time*1000);
-  wss.brodcast(JSON.stringify({kind: 'locked', locked:locked}))
+  wss.brodcast(update('UPDATE'))
 }
 
+setInterval(function(){
+  console.log(update('LOG'))
+}, 1000);
+
 server.listen(process.env.PORT, function listening(){
-  console.log('Listening on %s %d', server.address(), server.address().port)
+  console.log('Listening on port %d', server.address().port)
 });
