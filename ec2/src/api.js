@@ -84,13 +84,17 @@ device.on('message', function(topic, payload){
   switch (topic) {
     case 'button':
       buttonUpdate(payload);
+      break;
     case 'motion':
       buttonUpdate(payload);
+      break;
     case 'locked':
       lockUpdate(true, payload)
+      break;
     case 'unlocked':
       lockUpdate(false,payload)
-  }
+      break;
+   }
 })
 
 function buttonUpdate(payload) {
