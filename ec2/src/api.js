@@ -74,10 +74,10 @@ wss.on('connection', function(ws){
 
 device.on('connect', function(){
   console.log('connected');
-  device.subscribe('button', null, buttonUpdate);
-  device.subscribe('motion', null, buttonUpdate);
-  device.subscribe('locked', null, lockUpdate);
-  device.subscribe('unlocked', null, lockUpdate);
+  device.subscribe('button', {qos: 2});
+  device.subscribe('motion', {qos: 2});
+  device.subscribe('locked', {qos: 2});
+  device.subscribe('unlocked', {qos: 2});
   device.publish('server', 'awake')
 })
 
@@ -86,22 +86,26 @@ device.on('message', function(topic, payload){
   switch (topic) {
     case 'button':
       buttonUpdate(payload);
+      break;
     case 'motion':
       buttonUpdate(payload);
+      break;
     case 'locked':
       lockUpdate(true, payload)
+      break;
     case 'unlocked':
       lockUpdate(false,payload)
+      break;
   }
 })
 
-function buttonUpdate(err, payload) {
-  console.log(payload)
+function buttonUpdate( payload) {
+  button = parseInt(payload)
   wss.brodcast(update('UPDATE'))
 }
 
-function lockUpdate(err, payload) {
-  console.log(payload)
+function lockUpdate(status, payload) {
+  locked = status;
   wss.brodcast(update('UPDATE'))
 }
 
