@@ -60,6 +60,7 @@ wss.on('connection', function(ws){
   const location = url.parse(ws.upgradeReq.url, true);
   ws.send(update("UPDATE"))
   ws.on('message', function(data){
+
     data = (typeof data === 'string' || data instanceof String)? JSON.parse(data) : data;
     if (data.id === button) {
       console.log(data);
@@ -72,10 +73,11 @@ wss.on('connection', function(ws){
 })
 
 device.on('connect', function(){
-  device.subscribe('button');
-  device.subscribe('motion');
-  device.subscribe('locked');
-  device.subscribe('unlocked');
+  console.log('connected');
+  device.subscribe('button', null, buttonUpdate);
+  device.subscribe('motion', null, buttonUpdate);
+  device.subscribe('locked', null, lockUpdate);
+  device.subscribe('unlocked', null, lockUpdate);
   device.publish('server', 'awake')
 })
 
@@ -93,21 +95,19 @@ device.on('message', function(topic, payload){
   }
 })
 
-function buttonUpdate(payload) {
-  button = parseInt(payload.toString())
+function buttonUpdate(err, payload) {
+  console.log(payload)
   wss.brodcast(update('UPDATE'))
 }
 
-function lockUpdate(status, payload) {
-  locked = status
-  var time = parseInt(payload.toString());
-  lockedTime = new Date(time*1000);
+function lockUpdate(err, payload) {
+  console.log(payload)
   wss.brodcast(update('UPDATE'))
 }
 
 setInterval(function(){
   console.log(update('LOG'))
-}, 1000);
+}, 10000);
 
 server.listen(process.env.PORT, function listening(){
   console.log('Listening on port %d', server.address().port)
