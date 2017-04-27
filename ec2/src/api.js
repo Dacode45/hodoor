@@ -64,8 +64,7 @@ wss.on('connection', function(ws){
     data = (typeof data === 'string' || data instanceof String)? JSON.parse(data) : data;
     if (data.id === button) {
       console.log(data);
-      var status = (data.lock)? 'lock' : 'unlock';
-      device.publish(status, '');
+      device.publish(status, data.lock);
     } else {
       ws.send(update("LOGOUT"));
     }
@@ -110,7 +109,7 @@ function lockUpdate(status, payload) {
 
 setInterval(function(){
   console.log(update('LOG'))
-}, 10000);
+}, 100000);
 
 server.listen(process.env.PORT, function listening(){
   console.log('Listening on port %d', server.address().port)
