@@ -63,7 +63,7 @@ wss.on('connection', function(ws){
     data = (typeof data === 'string' || data instanceof String)? JSON.parse(data) : data;
     if (data.id === button) {
       console.log(data);
-      device.publish(status, data.lock);
+      device.publish(data.lock, '');
     } else {
       ws.send(update("LOGOUT"));
     }
