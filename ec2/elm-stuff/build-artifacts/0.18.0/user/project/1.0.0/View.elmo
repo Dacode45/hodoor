@@ -34,103 +34,109 @@ var _user$project$View$viewLocked = function (login) {
 		});
 };
 var _user$project$View$viewLoggedIn = F2(
-	function (model, login) {
-		return A2(
-			_elm_lang$html$Html$div,
-			{ctor: '[]'},
-			{
-				ctor: '::',
-				_0: A2(
-					_debois$elm_mdl$Material_Card$view,
-					{ctor: '[]'},
-					{
-						ctor: '::',
-						_0: A2(
-							_debois$elm_mdl$Material_Card$title,
-							{ctor: '[]'},
-							{
+	function (model, old) {
+		var _p0 = model.status;
+		if (_p0.ctor === 'Nothing') {
+			return A2(
+				_elm_lang$html$Html$div,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: _debois$elm_mdl$Material_Progress$indeterminate,
+					_1: {ctor: '[]'}
+				});
+		} else {
+			var _p1 = _p0._0;
+			return A2(
+				_elm_lang$html$Html$div,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: A2(
+						_debois$elm_mdl$Material_Card$view,
+						{
+							ctor: '::',
+							_0: _debois$elm_mdl$Material_Card$expand,
+							_1: {
+								ctor: '::',
+								_0: A2(_debois$elm_mdl$Material_Options$css, 'width', '800px'),
+								_1: {
+									ctor: '::',
+									_0: A2(_debois$elm_mdl$Material_Options$css, 'height', '800px'),
+									_1: {ctor: '[]'}
+								}
+							}
+						},
+						{
+							ctor: '::',
+							_0: A2(
+								_debois$elm_mdl$Material_Card$title,
+								{ctor: '[]'},
+								{
+									ctor: '::',
+									_0: A2(
+										_debois$elm_mdl$Material_Card$head,
+										{ctor: '[]'},
+										{
+											ctor: '::',
+											_0: _elm_lang$html$Html$text('Welcome to your doorlock'),
+											_1: {ctor: '[]'}
+										}),
+									_1: {
+										ctor: '::',
+										_0: A2(
+											_debois$elm_mdl$Material_Card$subhead,
+											{ctor: '[]'},
+											{
+												ctor: '::',
+												_0: _user$project$View$viewLocked(_p1),
+												_1: {ctor: '[]'}
+											}),
+										_1: {ctor: '[]'}
+									}
+								}),
+							_1: {
 								ctor: '::',
 								_0: A2(
-									_debois$elm_mdl$Material_Card$head,
+									_debois$elm_mdl$Material_Card$media,
 									{ctor: '[]'},
 									{
 										ctor: '::',
-										_0: _elm_lang$html$Html$text('Welcome to your doorlock'),
+										_0: A2(
+											_elm_lang$html$Html$div,
+											{
+												ctor: '::',
+												_0: _elm_lang$html$Html_Attributes$class('my_content'),
+												_1: {ctor: '[]'}
+											},
+											{
+												ctor: '::',
+												_0: A2(
+													_elm_lang$html$Html$iframe,
+													{
+														ctor: '::',
+														_0: _elm_lang$html$Html_Attributes$src(
+															A2(
+																_user$project$View$iframeUrl,
+																model,
+																_elm_lang$core$Basics$toString(_p1.button))),
+														_1: {
+															ctor: '::',
+															_0: _elm_lang$html$Html_Attributes$class('iframe'),
+															_1: {ctor: '[]'}
+														}
+													},
+													{ctor: '[]'}),
+												_1: {ctor: '[]'}
+											}),
 										_1: {ctor: '[]'}
 									}),
 								_1: {
 									ctor: '::',
 									_0: A2(
-										_debois$elm_mdl$Material_Card$subhead,
+										_debois$elm_mdl$Material_Card$actions,
 										{ctor: '[]'},
 										{
-											ctor: '::',
-											_0: _user$project$View$viewLocked(login),
-											_1: {ctor: '[]'}
-										}),
-									_1: {ctor: '[]'}
-								}
-							}),
-						_1: {
-							ctor: '::',
-							_0: A2(
-								_debois$elm_mdl$Material_Card$text,
-								{ctor: '[]'},
-								{
-									ctor: '::',
-									_0: A2(
-										_elm_lang$html$Html$iframe,
-										{
-											ctor: '::',
-											_0: _elm_lang$html$Html_Attributes$src(
-												A2(
-													_user$project$View$iframeUrl,
-													model,
-													_elm_lang$core$Basics$toString(login.button))),
-											_1: {
-												ctor: '::',
-												_0: _elm_lang$html$Html_Attributes$class('iframe'),
-												_1: {ctor: '[]'}
-											}
-										},
-										{ctor: '[]'}),
-									_1: {ctor: '[]'}
-								}),
-							_1: {
-								ctor: '::',
-								_0: A2(
-									_debois$elm_mdl$Material_Card$actions,
-									{ctor: '[]'},
-									{
-										ctor: '::',
-										_0: A5(
-											_debois$elm_mdl$Material_Button$render,
-											_user$project$Msgs$Mdl,
-											{
-												ctor: '::',
-												_0: 0,
-												_1: {ctor: '[]'}
-											},
-											model.mdl,
-											{
-												ctor: '::',
-												_0: _debois$elm_mdl$Material_Button$raised,
-												_1: {
-													ctor: '::',
-													_0: _debois$elm_mdl$Material_Button$primary,
-													_1: {
-														ctor: '::',
-														_0: _debois$elm_mdl$Material_Options$onClick(_user$project$Msgs$LockDoor),
-														_1: {ctor: '[]'}
-													}
-												}
-											},
-											{
-												ctor: '::',
-												_0: _elm_lang$html$Html$text('Lock Door'),
-												_1: {ctor: '[]'}
-											}),
-										_1: {
 											ctor: '::',
 											_0: A5(
 												_debois$elm_mdl$Material_Button$render,
@@ -146,34 +152,64 @@ var _user$project$View$viewLoggedIn = F2(
 													_0: _debois$elm_mdl$Material_Button$raised,
 													_1: {
 														ctor: '::',
-														_0: _debois$elm_mdl$Material_Button$accent,
+														_0: _debois$elm_mdl$Material_Button$primary,
 														_1: {
 															ctor: '::',
-															_0: _debois$elm_mdl$Material_Options$onClick(_user$project$Msgs$UnlockDoor),
+															_0: _debois$elm_mdl$Material_Options$onClick(_user$project$Msgs$LockDoor),
 															_1: {ctor: '[]'}
 														}
 													}
 												},
 												{
 													ctor: '::',
-													_0: _elm_lang$html$Html$text('Unlock Door'),
+													_0: _elm_lang$html$Html$text('Lock Door'),
 													_1: {ctor: '[]'}
 												}),
-											_1: {ctor: '[]'}
-										}
-									}),
-								_1: {ctor: '[]'}
+											_1: {
+												ctor: '::',
+												_0: A5(
+													_debois$elm_mdl$Material_Button$render,
+													_user$project$Msgs$Mdl,
+													{
+														ctor: '::',
+														_0: 0,
+														_1: {ctor: '[]'}
+													},
+													model.mdl,
+													{
+														ctor: '::',
+														_0: _debois$elm_mdl$Material_Button$raised,
+														_1: {
+															ctor: '::',
+															_0: _debois$elm_mdl$Material_Button$accent,
+															_1: {
+																ctor: '::',
+																_0: _debois$elm_mdl$Material_Options$onClick(_user$project$Msgs$UnlockDoor),
+																_1: {ctor: '[]'}
+															}
+														}
+													},
+													{
+														ctor: '::',
+														_0: _elm_lang$html$Html$text('Unlock Door'),
+														_1: {ctor: '[]'}
+													}),
+												_1: {ctor: '[]'}
+											}
+										}),
+									_1: {ctor: '[]'}
+								}
 							}
-						}
-					}),
-				_1: {ctor: '[]'}
-			});
+						}),
+					_1: {ctor: '[]'}
+				});
+		}
 	});
 var _user$project$View$page = function (model) {
-	var _p0 = model.lf.login;
-	switch (_p0.ctor) {
+	var _p2 = model.lf.login;
+	switch (_p2.ctor) {
 		case 'Success':
-			return A2(_user$project$View$viewLoggedIn, model, _p0._0);
+			return A2(_user$project$View$viewLoggedIn, model, _p2._0);
 		case 'Failure':
 			return A2(
 				_elm_lang$html$Html$div,

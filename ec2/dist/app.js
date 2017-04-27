@@ -104,7 +104,7 @@ exports = module.exports = __webpack_require__(8)(undefined);
 
 
 // module
-exports.push([module.i, "iframe {\n  width:100%;\n  height: 100%;\n}\n", ""]);
+exports.push([module.i, "iframe {\n  width:100%;\n  height: 100%;\n}\n\n.mdl-card {\n  width: 100%;\n  height: 100%;\n}\n\n.my_content {\n  height: 600px;\n  width: 800px;\n}\n\n.unlocked-text {\n  color: green;\n}\n\n.locked-text {\n  color: red;\n}\n", ""]);
 
 // exports
 
@@ -15608,6 +15608,91 @@ var _debois$elm_mdl$Material_Color$primaryContrast = _debois$elm_mdl$Material_Co
 var _debois$elm_mdl$Material_Color$accent = _debois$elm_mdl$Material_Color$C('accent');
 var _debois$elm_mdl$Material_Color$accentContrast = _debois$elm_mdl$Material_Color$C('accent-contrast');
 
+var _debois$elm_mdl$Material_Progress$percentage = function (p) {
+	return A2(
+		_elm_lang$core$Basics_ops['++'],
+		_elm_lang$core$Basics$toString(p),
+		'%');
+};
+var _debois$elm_mdl$Material_Progress$bar = F4(
+	function (indeterminate, buffered, p, b) {
+		return A2(
+			_debois$elm_mdl$Material_Options$div,
+			{
+				ctor: '::',
+				_0: _debois$elm_mdl$Material_Options$cs('mdl-progress mdl-js-progress is-upgraded'),
+				_1: {
+					ctor: '::',
+					_0: indeterminate ? _debois$elm_mdl$Material_Options$cs('mdl-progress__indeterminate') : _debois$elm_mdl$Material_Options$nop,
+					_1: {ctor: '[]'}
+				}
+			},
+			{
+				ctor: '::',
+				_0: A2(
+					_debois$elm_mdl$Material_Options$div,
+					{
+						ctor: '::',
+						_0: _debois$elm_mdl$Material_Options$cs('progressbar bar bar1'),
+						_1: {
+							ctor: '::',
+							_0: A2(
+								_debois$elm_mdl$Material_Options$css,
+								'width',
+								_debois$elm_mdl$Material_Progress$percentage(p)),
+							_1: {ctor: '[]'}
+						}
+					},
+					{ctor: '[]'}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_debois$elm_mdl$Material_Options$div,
+						{
+							ctor: '::',
+							_0: _debois$elm_mdl$Material_Options$cs('bufferbar bar bar2'),
+							_1: {
+								ctor: '::',
+								_0: A2(
+									_debois$elm_mdl$Material_Options$css,
+									'width',
+									_debois$elm_mdl$Material_Progress$percentage(b)),
+								_1: {ctor: '[]'}
+							}
+						},
+						{ctor: '[]'}),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_debois$elm_mdl$Material_Options$div,
+							{
+								ctor: '::',
+								_0: _debois$elm_mdl$Material_Options$cs('auxbar bar bar3'),
+								_1: {
+									ctor: '::',
+									_0: A2(
+										_debois$elm_mdl$Material_Options$css,
+										'width',
+										_debois$elm_mdl$Material_Progress$percentage(
+											buffered ? (100 - b) : 0)),
+									_1: {ctor: '[]'}
+								}
+							},
+							{ctor: '[]'}),
+						_1: {ctor: '[]'}
+					}
+				}
+			});
+	});
+var _debois$elm_mdl$Material_Progress$buffered = F2(
+	function (p, b) {
+		return A4(_debois$elm_mdl$Material_Progress$bar, false, true, p, b);
+	});
+var _debois$elm_mdl$Material_Progress$progress = function (p) {
+	return A4(_debois$elm_mdl$Material_Progress$bar, false, false, p, 100);
+};
+var _debois$elm_mdl$Material_Progress$indeterminate = A4(_debois$elm_mdl$Material_Progress$bar, true, false, 0, 100);
+
 var _debois$elm_mdl$Material_Scheme$scheme = F2(
 	function (primary, accent) {
 		return A2(
@@ -16959,13 +17044,31 @@ var _user$project$Models$model = F2(
 			lf: _user$project$LF_Models$model(httpUrl),
 			socketUrl: socketUrl,
 			httpUrl: httpUrl,
+			status: _elm_lang$core$Maybe$Nothing,
 			mdl: _debois$elm_mdl$Material$model
 		};
 	});
-var _user$project$Models$Model = F4(
-	function (a, b, c, d) {
-		return {lf: a, socketUrl: b, httpUrl: c, mdl: d};
+var _user$project$Models$Model = F5(
+	function (a, b, c, d, e) {
+		return {lf: a, socketUrl: b, httpUrl: c, status: d, mdl: e};
 	});
+var _user$project$Models$WSUpdate = F3(
+	function (a, b, c) {
+		return {button: a, locked: b, msg: c};
+	});
+var _user$project$Models$wsDecoder = A3(
+	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+	'msg',
+	_elm_lang$core$Json_Decode$string,
+	A3(
+		_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+		'locked',
+		_elm_lang$core$Json_Decode$bool,
+		A3(
+			_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+			'button',
+			_elm_lang$core$Json_Decode$int,
+			_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$Models$WSUpdate))));
 
 var _user$project$Update$lockMsg = F2(
 	function (id, locked) {
@@ -17006,8 +17109,8 @@ var _user$project$Update$update = F2(
 					_1: cmd
 				};
 			case 'LockDoor':
-				var _p3 = model.lf.login;
-				if (_p3.ctor === 'Success') {
+				var _p3 = model.status;
+				if (_p3.ctor === 'Just') {
 					return {
 						ctor: '_Tuple2',
 						_0: model,
@@ -17020,8 +17123,8 @@ var _user$project$Update$update = F2(
 					return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
 				}
 			case 'UnlockDoor':
-				var _p4 = model.lf.login;
-				if (_p4.ctor === 'Success') {
+				var _p4 = model.status;
+				if (_p4.ctor === 'Just') {
 					return {
 						ctor: '_Tuple2',
 						_0: model,
@@ -17034,18 +17137,38 @@ var _user$project$Update$update = F2(
 					return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
 				}
 			case 'WS':
-				var _p5 = _p1._0;
-				if (_p5 === 'LOGOUT') {
-					return {
-						ctor: '_Tuple2',
-						_0: _elm_lang$core$Native_Utils.update(
-							model,
-							{
-								lf: _user$project$LF_Models$model(model.httpUrl)
-							}),
-						_1: _elm_lang$core$Platform_Cmd$none
-					};
+				var _p9 = _p1._0;
+				var $new = A2(_elm_lang$core$Json_Decode$decodeString, _user$project$Models$wsDecoder, _p9);
+				var _p5 = $new;
+				if (_p5.ctor === 'Ok') {
+					var _p7 = _p5._0;
+					var _p6 = _p7.msg;
+					if (_p6 === 'LOGOUT') {
+						return {
+							ctor: '_Tuple2',
+							_0: _elm_lang$core$Native_Utils.update(
+								model,
+								{
+									lf: _user$project$LF_Models$model(model.httpUrl)
+								}),
+							_1: _elm_lang$core$Platform_Cmd$none
+						};
+					} else {
+						return {
+							ctor: '_Tuple2',
+							_0: _elm_lang$core$Native_Utils.update(
+								model,
+								{
+									status: _elm_lang$core$Maybe$Just(_p7)
+								}),
+							_1: _elm_lang$core$Platform_Cmd$none
+						};
+					}
 				} else {
+					var _p8 = A2(
+						_elm_lang$core$Debug$log,
+						A2(_elm_lang$core$Basics_ops['++'], 'Faild to parse ws update: ', _p9),
+						1);
 					return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
 				}
 			default:
@@ -17089,103 +17212,109 @@ var _user$project$View$viewLocked = function (login) {
 		});
 };
 var _user$project$View$viewLoggedIn = F2(
-	function (model, login) {
-		return A2(
-			_elm_lang$html$Html$div,
-			{ctor: '[]'},
-			{
-				ctor: '::',
-				_0: A2(
-					_debois$elm_mdl$Material_Card$view,
-					{ctor: '[]'},
-					{
-						ctor: '::',
-						_0: A2(
-							_debois$elm_mdl$Material_Card$title,
-							{ctor: '[]'},
-							{
+	function (model, old) {
+		var _p0 = model.status;
+		if (_p0.ctor === 'Nothing') {
+			return A2(
+				_elm_lang$html$Html$div,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: _debois$elm_mdl$Material_Progress$indeterminate,
+					_1: {ctor: '[]'}
+				});
+		} else {
+			var _p1 = _p0._0;
+			return A2(
+				_elm_lang$html$Html$div,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: A2(
+						_debois$elm_mdl$Material_Card$view,
+						{
+							ctor: '::',
+							_0: _debois$elm_mdl$Material_Card$expand,
+							_1: {
+								ctor: '::',
+								_0: A2(_debois$elm_mdl$Material_Options$css, 'width', '800px'),
+								_1: {
+									ctor: '::',
+									_0: A2(_debois$elm_mdl$Material_Options$css, 'height', '800px'),
+									_1: {ctor: '[]'}
+								}
+							}
+						},
+						{
+							ctor: '::',
+							_0: A2(
+								_debois$elm_mdl$Material_Card$title,
+								{ctor: '[]'},
+								{
+									ctor: '::',
+									_0: A2(
+										_debois$elm_mdl$Material_Card$head,
+										{ctor: '[]'},
+										{
+											ctor: '::',
+											_0: _elm_lang$html$Html$text('Welcome to your doorlock'),
+											_1: {ctor: '[]'}
+										}),
+									_1: {
+										ctor: '::',
+										_0: A2(
+											_debois$elm_mdl$Material_Card$subhead,
+											{ctor: '[]'},
+											{
+												ctor: '::',
+												_0: _user$project$View$viewLocked(_p1),
+												_1: {ctor: '[]'}
+											}),
+										_1: {ctor: '[]'}
+									}
+								}),
+							_1: {
 								ctor: '::',
 								_0: A2(
-									_debois$elm_mdl$Material_Card$head,
+									_debois$elm_mdl$Material_Card$media,
 									{ctor: '[]'},
 									{
 										ctor: '::',
-										_0: _elm_lang$html$Html$text('Welcome to your doorlock'),
+										_0: A2(
+											_elm_lang$html$Html$div,
+											{
+												ctor: '::',
+												_0: _elm_lang$html$Html_Attributes$class('my_content'),
+												_1: {ctor: '[]'}
+											},
+											{
+												ctor: '::',
+												_0: A2(
+													_elm_lang$html$Html$iframe,
+													{
+														ctor: '::',
+														_0: _elm_lang$html$Html_Attributes$src(
+															A2(
+																_user$project$View$iframeUrl,
+																model,
+																_elm_lang$core$Basics$toString(_p1.button))),
+														_1: {
+															ctor: '::',
+															_0: _elm_lang$html$Html_Attributes$class('iframe'),
+															_1: {ctor: '[]'}
+														}
+													},
+													{ctor: '[]'}),
+												_1: {ctor: '[]'}
+											}),
 										_1: {ctor: '[]'}
 									}),
 								_1: {
 									ctor: '::',
 									_0: A2(
-										_debois$elm_mdl$Material_Card$subhead,
+										_debois$elm_mdl$Material_Card$actions,
 										{ctor: '[]'},
 										{
-											ctor: '::',
-											_0: _user$project$View$viewLocked(login),
-											_1: {ctor: '[]'}
-										}),
-									_1: {ctor: '[]'}
-								}
-							}),
-						_1: {
-							ctor: '::',
-							_0: A2(
-								_debois$elm_mdl$Material_Card$text,
-								{ctor: '[]'},
-								{
-									ctor: '::',
-									_0: A2(
-										_elm_lang$html$Html$iframe,
-										{
-											ctor: '::',
-											_0: _elm_lang$html$Html_Attributes$src(
-												A2(
-													_user$project$View$iframeUrl,
-													model,
-													_elm_lang$core$Basics$toString(login.button))),
-											_1: {
-												ctor: '::',
-												_0: _elm_lang$html$Html_Attributes$class('iframe'),
-												_1: {ctor: '[]'}
-											}
-										},
-										{ctor: '[]'}),
-									_1: {ctor: '[]'}
-								}),
-							_1: {
-								ctor: '::',
-								_0: A2(
-									_debois$elm_mdl$Material_Card$actions,
-									{ctor: '[]'},
-									{
-										ctor: '::',
-										_0: A5(
-											_debois$elm_mdl$Material_Button$render,
-											_user$project$Msgs$Mdl,
-											{
-												ctor: '::',
-												_0: 0,
-												_1: {ctor: '[]'}
-											},
-											model.mdl,
-											{
-												ctor: '::',
-												_0: _debois$elm_mdl$Material_Button$raised,
-												_1: {
-													ctor: '::',
-													_0: _debois$elm_mdl$Material_Button$primary,
-													_1: {
-														ctor: '::',
-														_0: _debois$elm_mdl$Material_Options$onClick(_user$project$Msgs$LockDoor),
-														_1: {ctor: '[]'}
-													}
-												}
-											},
-											{
-												ctor: '::',
-												_0: _elm_lang$html$Html$text('Lock Door'),
-												_1: {ctor: '[]'}
-											}),
-										_1: {
 											ctor: '::',
 											_0: A5(
 												_debois$elm_mdl$Material_Button$render,
@@ -17201,34 +17330,64 @@ var _user$project$View$viewLoggedIn = F2(
 													_0: _debois$elm_mdl$Material_Button$raised,
 													_1: {
 														ctor: '::',
-														_0: _debois$elm_mdl$Material_Button$accent,
+														_0: _debois$elm_mdl$Material_Button$primary,
 														_1: {
 															ctor: '::',
-															_0: _debois$elm_mdl$Material_Options$onClick(_user$project$Msgs$UnlockDoor),
+															_0: _debois$elm_mdl$Material_Options$onClick(_user$project$Msgs$LockDoor),
 															_1: {ctor: '[]'}
 														}
 													}
 												},
 												{
 													ctor: '::',
-													_0: _elm_lang$html$Html$text('Unlock Door'),
+													_0: _elm_lang$html$Html$text('Lock Door'),
 													_1: {ctor: '[]'}
 												}),
-											_1: {ctor: '[]'}
-										}
-									}),
-								_1: {ctor: '[]'}
+											_1: {
+												ctor: '::',
+												_0: A5(
+													_debois$elm_mdl$Material_Button$render,
+													_user$project$Msgs$Mdl,
+													{
+														ctor: '::',
+														_0: 0,
+														_1: {ctor: '[]'}
+													},
+													model.mdl,
+													{
+														ctor: '::',
+														_0: _debois$elm_mdl$Material_Button$raised,
+														_1: {
+															ctor: '::',
+															_0: _debois$elm_mdl$Material_Button$accent,
+															_1: {
+																ctor: '::',
+																_0: _debois$elm_mdl$Material_Options$onClick(_user$project$Msgs$UnlockDoor),
+																_1: {ctor: '[]'}
+															}
+														}
+													},
+													{
+														ctor: '::',
+														_0: _elm_lang$html$Html$text('Unlock Door'),
+														_1: {ctor: '[]'}
+													}),
+												_1: {ctor: '[]'}
+											}
+										}),
+									_1: {ctor: '[]'}
+								}
 							}
-						}
-					}),
-				_1: {ctor: '[]'}
-			});
+						}),
+					_1: {ctor: '[]'}
+				});
+		}
 	});
 var _user$project$View$page = function (model) {
-	var _p0 = model.lf.login;
-	switch (_p0.ctor) {
+	var _p2 = model.lf.login;
+	switch (_p2.ctor) {
 		case 'Success':
-			return A2(_user$project$View$viewLoggedIn, model, _p0._0);
+			return A2(_user$project$View$viewLoggedIn, model, _p2._0);
 		case 'Failure':
 			return A2(
 				_elm_lang$html$Html$div,

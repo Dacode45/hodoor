@@ -12,6 +12,7 @@ import Material.Card as Card
 import Material.Options as Options
 import Material.Scheme
 import Material.Layout as Layout
+import Material.Progress as Loading
 
 
 view : Model -> Html Msg
@@ -41,7 +42,7 @@ page model =
             div [] [ LF.View.view model.lf ]
 
 
-viewLocked : LogIn -> Html msg
+viewLocked : Models.WSUpdate -> Html msg
 viewLocked login =
     if login.locked then
         span [ class "locked-text" ] [ text "Your door is locked" ]
@@ -55,37 +56,44 @@ iframeUrl model str =
 
 
 viewLoggedIn : Model -> LogIn -> Html Msg
-viewLoggedIn model login =
-    div []
-        [ Card.view []
-            [ Card.title []
-                [ Card.head [] [ text "Welcome to your doorlock" ]
-                , Card.subhead [] [ viewLocked login ]
-                ]
-            , Card.text []
-                [ iframe
-                    [ src <| (iframeUrl model (toString login.button))
-                    , class "iframe"
+viewLoggedIn model old =
+    case model.status of
+        Nothing ->
+            div [] [ Loading.indeterminate ]
+
+        Just login ->
+            div []
+                [ Card.view [ Card.expand, Options.css "width" "800px", Options.css "height" "800px" ]
+                    [ Card.title []
+                        [ Card.head [] [ text "Welcome to your doorlock" ]
+                        , Card.subhead [] [ viewLocked login ]
+                        ]
+                    , Card.media []
+                        [ div [ class "my_content" ]
+                            [ iframe
+                                [ src <| (iframeUrl model (toString login.button))
+                                , class "iframe"
+                                ]
+                                []
+                            ]
+                        ]
+                    , Card.actions []
+                        [ Button.render Mdl
+                            [ 0 ]
+                            model.mdl
+                            [ Button.raised
+                            , Button.primary
+                            , Options.onClick LockDoor
+                            ]
+                            [ text "Lock Door" ]
+                        , Button.render Mdl
+                            [ 0 ]
+                            model.mdl
+                            [ Button.raised
+                            , Button.accent
+                            , Options.onClick UnlockDoor
+                            ]
+                            [ text "Unlock Door" ]
+                        ]
                     ]
-                    []
                 ]
-            , Card.actions []
-                [ Button.render Mdl
-                    [ 0 ]
-                    model.mdl
-                    [ Button.raised
-                    , Button.primary
-                    , Options.onClick LockDoor
-                    ]
-                    [ text "Lock Door" ]
-                , Button.render Mdl
-                    [ 0 ]
-                    model.mdl
-                    [ Button.raised
-                    , Button.accent
-                    , Options.onClick UnlockDoor
-                    ]
-                    [ text "Unlock Door" ]
-                ]
-            ]
-        ]

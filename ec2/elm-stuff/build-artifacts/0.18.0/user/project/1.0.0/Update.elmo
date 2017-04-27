@@ -37,8 +37,8 @@ var _user$project$Update$update = F2(
 					_1: cmd
 				};
 			case 'LockDoor':
-				var _p3 = model.lf.login;
-				if (_p3.ctor === 'Success') {
+				var _p3 = model.status;
+				if (_p3.ctor === 'Just') {
 					return {
 						ctor: '_Tuple2',
 						_0: model,
@@ -51,8 +51,8 @@ var _user$project$Update$update = F2(
 					return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
 				}
 			case 'UnlockDoor':
-				var _p4 = model.lf.login;
-				if (_p4.ctor === 'Success') {
+				var _p4 = model.status;
+				if (_p4.ctor === 'Just') {
 					return {
 						ctor: '_Tuple2',
 						_0: model,
@@ -65,18 +65,38 @@ var _user$project$Update$update = F2(
 					return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
 				}
 			case 'WS':
-				var _p5 = _p1._0;
-				if (_p5 === 'LOGOUT') {
-					return {
-						ctor: '_Tuple2',
-						_0: _elm_lang$core$Native_Utils.update(
-							model,
-							{
-								lf: _user$project$LF_Models$model(model.httpUrl)
-							}),
-						_1: _elm_lang$core$Platform_Cmd$none
-					};
+				var _p9 = _p1._0;
+				var $new = A2(_elm_lang$core$Json_Decode$decodeString, _user$project$Models$wsDecoder, _p9);
+				var _p5 = $new;
+				if (_p5.ctor === 'Ok') {
+					var _p7 = _p5._0;
+					var _p6 = _p7.msg;
+					if (_p6 === 'LOGOUT') {
+						return {
+							ctor: '_Tuple2',
+							_0: _elm_lang$core$Native_Utils.update(
+								model,
+								{
+									lf: _user$project$LF_Models$model(model.httpUrl)
+								}),
+							_1: _elm_lang$core$Platform_Cmd$none
+						};
+					} else {
+						return {
+							ctor: '_Tuple2',
+							_0: _elm_lang$core$Native_Utils.update(
+								model,
+								{
+									status: _elm_lang$core$Maybe$Just(_p7)
+								}),
+							_1: _elm_lang$core$Platform_Cmd$none
+						};
+					}
 				} else {
+					var _p8 = A2(
+						_elm_lang$core$Debug$log,
+						A2(_elm_lang$core$Basics_ops['++'], 'Faild to parse ws update: ', _p9),
+						1);
 					return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
 				}
 			default:
