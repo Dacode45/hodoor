@@ -50,9 +50,8 @@ var device = awsIot.device(config)
 
 wss.brodcast = function(data) {
   wss.clients.forEach(function(client){
-    if(client.readState === WebSocket.OPEN) {
       client.send(data);
-    }
+
   })
 }
 
